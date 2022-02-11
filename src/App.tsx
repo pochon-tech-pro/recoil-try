@@ -52,7 +52,7 @@ const App: VFC = () => {
     return (
         <div className="App">
             <div>名前: <input type="text" value={name} onChange={e => setName(e.target.value)}/></div>
-            <div>年齢: <input type="text" value={age} onChange={e => setAge(Number(e.target.value))}/></div>
+            <div>年齢: <input type="number" value={age} onChange={e => setAge(Number(e.target.value))}/></div>
             <div>可否:
                 <label>
                     <input type="radio" checked={enable} onChange={e => setEnable(!!e.target.value)}/>
