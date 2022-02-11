@@ -1,7 +1,6 @@
-import React, {useState, VFC} from 'react';
+import React, {ChangeEvent, useState, VFC} from 'react';
 import './App.css';
-import {useRecoilState} from "recoil";
-
+import {selector, useRecoilState, useRecoilValue} from "recoil";
 import {atom} from "recoil";
 
 type User = {
@@ -15,14 +14,40 @@ const stateUsers = atom<User[] | []>({
     default: []
 })
 
+const filterState = atom<string>({
+    key: "filterState",
+    default: ""
+})
+
+const filteredUsers = selector<User[]>({
+    key: "filteredUsers",
+    get: ({get}) => {
+        const filter = get(filterState)
+        const list = get(stateUsers)
+
+        switch (filter) {
+            case 'OK':
+                return list.filter(item => item.enable)
+            case 'NG':
+                return list.filter(item => !item.enable)
+            default :
+                return list
+        }
+    }
+})
+
 const App: VFC = () => {
     const [name, setName] = useState('')
     const [age, setAge] = useState(0)
     const [enable, setEnable] = useState(false)
 
     const [users, setUsers] = useRecoilState(stateUsers)
-
     const saveHandler = () => setUsers([...users, {name, age, enable}])
+
+    const [kind, setKind] = useRecoilState(filterState)
+    const changeHandler = (e: ChangeEvent<HTMLSelectElement>) => setKind(e.target.value)
+
+    const filtered = useRecoilValue(filteredUsers)
 
     return (
         <div className="App">
@@ -31,20 +56,36 @@ const App: VFC = () => {
             <div>可否:
                 <label>
                     <input type="radio" checked={enable} onChange={e => setEnable(!!e.target.value)}/>
-                    <span>True</span>
+                    <span>OK</span>
                 </label>
                 <label>
                     <input type="radio" checked={!enable} onChange={e => setEnable(!e.target.value)}/>
-                    <span>False</span>
+                    <span>NG</span>
                 </label>
             </div>
 
-            <button onClick={saveHandler}>保存</button>
             <br/>
+            <button onClick={saveHandler}>保存</button>
 
+            <br/>
             <ul>
+                <li> users </li>
                 {users.map((user, idx) => {
-                    return <li key={idx}>{user.name} : {user.age} : {user.enable.toString()} </li>
+                    return <li key={idx}>{user.name} : {user.age} : {user.enable ? "OK" : "NG"} </li>
+                })}
+            </ul>
+
+            <br/>
+            <select value={kind} onChange={changeHandler }>
+                <option value=''>全て</option>
+                <option value='OK'>OK</option>
+                <option value='NG'>NG</option>
+            </select>
+            <br/>
+            <ul>
+                <li> users (filteredUsers) </li>
+                {filtered.map((user, idx) => {
+                    return <li key={idx}>{user.name} : {user.age} : {user.enable ? "OK" : "NG"} </li>
                 })}
             </ul>
         </div>
