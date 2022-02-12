@@ -11,15 +11,14 @@ const App: VFC = () => {
             <ul>
                 <li><Link to={"try-recoil"}>try-recoil</Link></li>
                 <li><Link to={"counter"}>counter</Link></li>
+                <li><Link to={"try-error"}>try-error</Link></li>
             </ul>
             <br/><br/><br/><br/>
             <Routes>
                 <Route path={"/"} element={<>Recoil Practice</>}/>
                 <Route path={"/try-recoil"} element={<TryRecoilAtomAndSelector/>}/>
                 <Route path={"/counter"} element={<Counter/>}/>
-                <Route path={"/try-error"} element={
-                    <TryErrorBoundary><TryErrorBoundaryInvalidSample/></TryErrorBoundary>
-                }/>
+                <Route path={"/try-error"} element={<TryErrorBoundary><TryErrorBoundaryInvalidSample/></TryErrorBoundary>}/>
             </Routes>
         </>
     )
