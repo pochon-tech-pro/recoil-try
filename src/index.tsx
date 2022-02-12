@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 
 import {RecoilRoot} from "recoil";
+import Counter from "./Counter";
 
 ReactDOM.render(
   <RecoilRoot>
-    <App />
+    <Counter />
   </RecoilRoot>,
   document.getElementById('root')
 );
