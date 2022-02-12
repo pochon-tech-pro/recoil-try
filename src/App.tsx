@@ -1,5 +1,4 @@
 import React, {ChangeEvent, useState, VFC} from 'react';
-import './App.css';
 import {selector, useRecoilState, useRecoilValue} from "recoil";
 import {atom} from "recoil";
 
