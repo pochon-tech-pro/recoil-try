@@ -6,6 +6,7 @@ import TryErrorBoundary from "./TryErrorBoundary";
 import TryErrorBoundaryInvalidSample from "./TryErrorBoundaryInvalidSample";
 import TryUseEffect from "./TryUseEffect";
 import TrySuspense from "./TrySuspense";
+import TryRecoilSelectAsync from "./TryRecoilSelectAsync";
 
 const App: VFC = () => {
     return (
@@ -16,6 +17,7 @@ const App: VFC = () => {
                 <li><Link to={"try-error"}>try-error</Link></li>
                 <li><Link to={"try-use-effect"}>try-useEffect</Link></li>
                 <li><Link to={"try-suspense"}>try-suspense</Link></li>
+                <li><Link to={"try-recoil-select-async"}>try-recoil-select-async</Link></li>
             </ul>
             <br/><br/><br/><br/>
             <Routes>
@@ -26,6 +28,7 @@ const App: VFC = () => {
                        element={<TryErrorBoundary><TryErrorBoundaryInvalidSample/></TryErrorBoundary>}/>
                 <Route path={"/try-use-effect"} element={<TryUseEffect/>}/>
                 <Route path={"/try-suspense"} element={<TrySuspense/>}/>
+                <Route path={"/try-recoil-select-async"} element={<TryRecoilSelectAsync/>}/>
 
             </Routes>
         </>
