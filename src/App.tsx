@@ -1,13 +1,13 @@
 import {VFC} from "react";
 import Counter from "./Counter";
-import TryRecoilAtomAndSelector from "./TryRecoilAtomAndSelector";
+import TryRecoilAtomAndSelector from "./practice/TryRecoilAtomAndSelector";
 import {Routes, Route, Link} from 'react-router-dom';
-import TryErrorBoundary from "./TryErrorBoundary";
-import TryErrorBoundaryInvalidSample from "./TryErrorBoundaryInvalidSample";
-import TryUseEffect from "./TryUseEffect";
-import TrySuspense from "./TrySuspense";
-import TryRecoilSelectAsync from "./TryRecoilSelectAsync";
-import TryCustomHooks from "./TryCustomHooks";
+import TryErrorBoundary from "./practice/TryErrorBoundary";
+import TryErrorBoundaryInvalidSample from "./practice/TryErrorBoundaryInvalidSample";
+import TryUseEffect from "./practice/TryUseEffect";
+import TrySuspense from "./practice/TrySuspense";
+import TryRecoilSelectAsync from "./practice/TryRecoilSelectAsync";
+import TryCustomHooks from "./practice/TryCustomHooks";
 
 const App: VFC = () => {
     return (
@@ -30,6 +30,7 @@ const App: VFC = () => {
                        element={<TryErrorBoundary><TryErrorBoundaryInvalidSample/></TryErrorBoundary>}/>
                 <Route path={"/try-use-effect"} element={<TryUseEffect/>}/>
                 <Route path={"/try-suspense"} element={<TrySuspense/>}/>
+                <Route path={"/try-recoil-select-async"} element={<TryRecoilSelectAsync/>}/>
                 <Route path={"/try-custom-hooks"} element={<TryCustomHooks/>}/>
 
             </Routes>
