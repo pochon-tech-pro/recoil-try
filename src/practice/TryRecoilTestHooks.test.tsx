@@ -1,4 +1,4 @@
-import {RecoilRoot, useRecoilState, useRecoilValue} from "recoil"
+import {RecoilRoot, useRecoilValue, useSetRecoilState} from "recoil"
 import {inputState, inputLengthState} from "./TryRecoilTest"
 import {renderHook} from "@testing-library/react-hooks";
 import {useEffect} from "react";
@@ -31,7 +31,7 @@ describe("TestRecoilState-inputLengthState", () => {
         const str = "Hello"
         const {result} = renderHook(() => {
             // 先にMockを使わずに固定値「Hello」をAtomにセットしたあと、Selectorのテストをしている。
-            const [input, setInput] = useRecoilState(inputState)
+            const setInput = useSetRecoilState(inputState)
             useEffect(() => {
                 setInput(str)
             },[setInput])
