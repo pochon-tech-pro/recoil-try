@@ -1,6 +1,6 @@
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { renderHook } from '@testing-library/react-hooks';
-import {taskDescriptionAtom, taskIsDoneAtom, taskTitleAtom} from './valueObject';
+import {taskDescriptionAtom, taskIsDoneAtom, taskTitleAtom} from './atoms';
 
 describe('taskTitleAtom', () => {
   it('初期は空文字', () => {

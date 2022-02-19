@@ -1,6 +1,6 @@
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import { renderHook } from '@testing-library/react-hooks';
-import { taskSelector } from './entity';
+import { taskSelector } from './selectors';
 import { useEffect } from 'react';
 import { TaskEntity } from '../types';
 

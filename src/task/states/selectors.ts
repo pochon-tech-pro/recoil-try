@@ -4,7 +4,7 @@ import {
   taskDescriptionAtom,
   taskIsDoneAtom,
   taskTitleAtom,
-} from './valueObject';
+} from './atoms';
 
 export const taskSelector = selectorFamily<TaskEntity, TaskId>({
   key: 'TaskSelector',
