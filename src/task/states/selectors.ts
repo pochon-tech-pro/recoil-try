@@ -1,12 +1,12 @@
 import { DefaultValue, selectorFamily } from 'recoil';
-import { TaskEntity, TaskId } from '../types';
+import { Task, TaskId } from '../types';
 import {
   taskDescriptionAtom,
   taskIsDoneAtom,
   taskTitleAtom,
 } from './atoms';
 
-export const taskSelector = selectorFamily<TaskEntity, TaskId>({
+export const taskSelector = selectorFamily<Task, TaskId>({
   key: 'TaskSelector',
   get:
     (taskId) =>

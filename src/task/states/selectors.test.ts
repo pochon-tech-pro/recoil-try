@@ -2,7 +2,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import { renderHook } from '@testing-library/react-hooks';
 import { taskSelector } from './selectors';
 import { useEffect } from 'react';
-import { TaskEntity } from '../types';
+import { Task } from '../types';
 
 describe('taskSelector', () => {
   it('初期は空文字', () => {
@@ -19,7 +19,7 @@ describe('taskSelector', () => {
   });
 
   it('State反映時', () => {
-    const data: TaskEntity = {
+    const data: Task = {
       id: 1001,
       title: 'Hello World',
       description: 'Hello World Description',
