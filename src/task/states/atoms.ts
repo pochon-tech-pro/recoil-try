@@ -1,5 +1,5 @@
-import { atomFamily } from 'recoil';
-import { TaskDescription, TaskId, TaskIsDone, TaskTitle } from '../types';
+import {atom, atomFamily} from 'recoil';
+import {TaskDescription, TaskId, TaskIsDone, TaskTitle} from '../types';
 
 export const taskTitleAtom = atomFamily<TaskTitle, TaskId>({
   key: 'taskTitleAtom',
@@ -15,3 +15,8 @@ export const taskIsDoneAtom = atomFamily<TaskIsDone, TaskId>({
   key: 'taskIsDoneAtom',
   default: false,
 });
+
+export const taskIdsAtom = atom<TaskId[]>({
+  key: "taskIdsAtom",
+  default: []
+})

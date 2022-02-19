@@ -2,6 +2,7 @@ import { DefaultValue, selectorFamily } from 'recoil';
 import { Task, TaskId } from '../types';
 import {
   taskDescriptionAtom,
+  taskIdsAtom,
   taskIsDoneAtom,
   taskTitleAtom,
 } from './atoms';
@@ -34,5 +35,9 @@ export const taskSelector = selectorFamily<Task, TaskId>({
       newValue.description &&
         set(taskDescriptionAtom(taskId), newValue.description);
       set(taskIsDoneAtom(taskId), newValue.isDone);
+
+      // 全件参照用にTaskIDのみの配列を保持。
+      !get(taskIdsAtom).find((taskId) => taskId === newValue.id) &&
+        set(taskIdsAtom, (ids) => [...ids, newValue.id]);
     },
 });
