@@ -7,7 +7,7 @@ export const useTask = () => {
     tasks.forEach((task) => {
       api.set(taskSelector(task.id), task);
     });
-  });
+  }, []);
 
   return {setTasks}
 };

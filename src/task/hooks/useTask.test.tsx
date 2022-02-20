@@ -4,6 +4,7 @@ import { Task } from '../types';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { taskIdsAtom } from '../states/atoms';
 import { useEffect } from 'react';
+import { act } from '@testing-library/react-hooks/dom';
 
 const fetchData: Task[] = [
   { id: 101, title: 'Task1', description: 'Task1 description', isDone: false },
@@ -28,7 +29,26 @@ describe('useTask', () => {
       return useRecoilValue(taskIdsAtom);
     };
 
-    const { result: {current} } = renderRecoilHook(scenario);
-    expect(current).toStrictEqual(fetchData.map(item => item.id))
+    const {
+      result: { current },
+    } = renderRecoilHook(scenario);
+    expect(current).toStrictEqual(fetchData.map((item) => item.id));
+  });
+
+  it('Hooksを呼び出してRecoilStateが更新されているかを確認する(actを使った方法)', () => {
+
+    const useScenario = () => {
+      const { setTasks } = useTask();
+      const taskIds = useRecoilValue(taskIdsAtom);
+      return { setTasks, taskIds };
+    };
+    const { result } = renderRecoilHook(useScenario);
+    expect(result.current.taskIds).toStrictEqual([]); // State更新前
+
+    // CustomHooksで返されるMethodが更新関数の場合はactの中で実施する必要がある。 actの引数のCallbackは非同期でも可能
+    act(() => {
+      result.current.setTasks(fetchData);
+    });
+    expect(result.current.taskIds).toStrictEqual(fetchData.map((item) => item.id));  // State更新後
   });
 });
