@@ -56,17 +56,17 @@ export const TaskList: FC = () => {
     [setTask],
   );
 
-  const addTask = useCallback(() => {
+  const addTask = useCallback((title, description) => {
     const newTaskId = tasks.slice(-1)[0].id + 1;
     setTask({
       id: newTaskId,
-      title: inputTitle,
-      description: inputDescription,
+      title: title,
+      description: description,
       isDone: false,
     });
     setInputTitle('');
     setInputDescription('');
-  }, [tasks, inputTitle, inputDescription]);
+  }, [tasks]);
 
   return (
     <div>
@@ -82,7 +82,7 @@ export const TaskList: FC = () => {
           value={inputDescription}
           onChange={(e) => setInputDescription(e.target.value)}
         />
-        <button onClick={addTask}>追加</button>
+        <button onClick={() => addTask(inputTitle, inputDescription)}>追加</button>
       </div>
       <ul>
         {tasks.map((task, idx) => {
