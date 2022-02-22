@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import {FC, useCallback, useEffect} from 'react';
 import { useRecoilValue } from 'recoil';
 import { useTask } from '../hooks/useTask';
 import { Task } from '../types';
@@ -44,6 +44,13 @@ export const TaskList: FC = () => {
     })();
   }, [setTasks]);
 
+  const toggleDone = useCallback((task: Task) => {
+    return setTask({
+        ...task,
+        isDone: !task.isDone
+    })
+  }, [setTask])
+
   return (
     <div>
       <h2>Recoil & Custom Hooks Test</h2>
@@ -51,8 +58,12 @@ export const TaskList: FC = () => {
         {tasks.map((task, idx) => {
           return (
             <li key={idx}>
-              {task.id} : {task.title} _ {task.description} _{' '}
-              {task.isDone ? '済' : '未'}
+                <div>
+                    {task.id} : {task.title} _ {task.description} _{' '}
+                    {task.isDone ? '済' : '未'}
+                    <button onClick={() => toggleDone(task)} style={{margin: 10}}>チェック</button>
+                    <button onClick={() => removeTask(task.id)}>削除</button>
+                </div>
             </li>
           );
         })}
