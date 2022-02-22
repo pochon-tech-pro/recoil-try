@@ -1,4 +1,4 @@
-import { DefaultValue, selectorFamily } from 'recoil';
+import { DefaultValue, selector, selectorFamily } from 'recoil';
 import { Task, TaskId } from '../types';
 import {
   taskDescriptionAtom,
@@ -6,6 +6,10 @@ import {
   taskIsDoneAtom,
   taskTitleAtom,
 } from './atoms';
+
+/**
+ * なるべくComponentが呼び出すのはここSelector関係だけにする。
+ */
 
 export const taskSelector = selectorFamily<Task, TaskId>({
   key: 'TaskSelector',
@@ -40,4 +44,12 @@ export const taskSelector = selectorFamily<Task, TaskId>({
       !get(taskIdsAtom).find((taskId) => taskId === newValue.id) &&
         set(taskIdsAtom, (ids) => [...ids, newValue.id]);
     },
+});
+
+export const tasksSelector = selector<Task[]>({
+  key: 'tasksSelector',
+  get: ({ get }) => {
+    const taskIds = get(taskIdsAtom);
+    return taskIds.map((taskId) => get(taskSelector(taskId)));
+  },
 });
