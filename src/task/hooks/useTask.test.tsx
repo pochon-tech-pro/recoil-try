@@ -36,7 +36,6 @@ describe('useTask', () => {
   });
 
   it('Hooksを呼び出してRecoilStateが更新されているかを確認する(actを使った方法)', () => {
-
     const useScenario = () => {
       const { setTasks } = useTask();
       const taskIds = useRecoilValue(taskIdsAtom);
@@ -49,6 +48,28 @@ describe('useTask', () => {
     act(() => {
       result.current.setTasks(fetchData);
     });
-    expect(result.current.taskIds).toStrictEqual(fetchData.map((item) => item.id));  // State更新後
+    expect(result.current.taskIds).toStrictEqual(
+      fetchData.map((item) => item.id),
+    ); // State更新後
+  });
+
+  it('setTaskとremoveTaskのテスト', () => {
+    const useScenario = () => {
+      const { setTask, removeTask } = useTask();
+      const taskIds = useRecoilValue(taskIdsAtom);
+      return { setTask, removeTask, taskIds };
+    };
+    const { result } = renderRecoilHook(useScenario);
+    expect(result.current.taskIds).toStrictEqual([]); // State更新前
+
+    act(() => {
+      result.current.setTask(fetchData.find(each => each.id === 101)!); // テストなので undefined のチェックはしない
+    });
+    expect(result.current.taskIds).toStrictEqual([101]); // State Set後
+
+    act(() => {
+      result.current.removeTask(101);
+    });
+    expect(result.current.taskIds).toStrictEqual([]); // State Remove後
   });
 });
