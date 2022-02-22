@@ -8,6 +8,7 @@ import TryUseEffect from "./practice/TryUseEffect";
 import TrySuspense from "./practice/TrySuspense";
 import TryRecoilSelectAsync from "./practice/TryRecoilSelectAsync";
 import TryCustomHooks from "./practice/TryCustomHooks";
+import {TaskList} from "./task/components/TaskList";
 
 const App: VFC = () => {
     return (
@@ -20,6 +21,7 @@ const App: VFC = () => {
                 <li><Link to={"try-suspense"}>try-suspense</Link></li>
                 <li><Link to={"try-recoil-select-async"}>try-recoil-select-async</Link></li>
                 <li><Link to={"try-custom-hooks"}>try-custom-hooks</Link></li>
+                <li><Link to={"task-recoil-hooks"}>task-recoil-hooks</Link></li>
             </ul>
             <br/><br/><br/><br/>
             <Routes>
@@ -32,7 +34,7 @@ const App: VFC = () => {
                 <Route path={"/try-suspense"} element={<TrySuspense/>}/>
                 <Route path={"/try-recoil-select-async"} element={<TryRecoilSelectAsync/>}/>
                 <Route path={"/try-custom-hooks"} element={<TryCustomHooks/>}/>
-
+                <Route path={"/task-recoil-hooks"} element={<TaskList/>}/>
             </Routes>
         </>
     )
