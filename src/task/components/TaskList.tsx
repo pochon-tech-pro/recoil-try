@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect} from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useTask } from '../hooks/useTask';
 import { Task } from '../types';
@@ -36,6 +36,8 @@ const dummyAPIResponseData = async (delay: number) => {
 export const TaskList: FC = () => {
   const tasks = useRecoilValue(tasksSelector);
   const { setTasks, setTask, removeTask } = useTask();
+  const [inputTitle, setInputTitle] = useState('');
+  const [inputDescription, setInputDescription] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -44,26 +46,56 @@ export const TaskList: FC = () => {
     })();
   }, [setTasks]);
 
-  const toggleDone = useCallback((task: Task) => {
-    return setTask({
+  const toggleDone = useCallback(
+    (task: Task) => {
+      return setTask({
         ...task,
-        isDone: !task.isDone
-    })
-  }, [setTask])
+        isDone: !task.isDone,
+      });
+    },
+    [setTask],
+  );
+
+  const addTask = useCallback(() => {
+    const newTaskId = tasks.slice(-1)[0].id + 1;
+    setTask({
+      id: newTaskId,
+      title: inputTitle,
+      description: inputDescription,
+      isDone: false,
+    });
+    setInputTitle('');
+    setInputDescription('');
+  }, [tasks, inputTitle, inputDescription]);
 
   return (
     <div>
       <h2>Recoil & Custom Hooks Test</h2>
+      <div>
+        タイトル：
+        <input
+          value={inputTitle}
+          onChange={(e) => setInputTitle(e.target.value)}
+        />
+        詳細：
+        <input
+          value={inputDescription}
+          onChange={(e) => setInputDescription(e.target.value)}
+        />
+        <button onClick={addTask}>追加</button>
+      </div>
       <ul>
         {tasks.map((task, idx) => {
           return (
             <li key={idx}>
-                <div>
-                    {task.id} : {task.title} _ {task.description} _{' '}
-                    {task.isDone ? '済' : '未'}
-                    <button onClick={() => toggleDone(task)} style={{margin: 10}}>チェック</button>
-                    <button onClick={() => removeTask(task.id)}>削除</button>
-                </div>
+              <div>
+                {task.id} : {task.title} _ {task.description} _{' '}
+                {task.isDone ? '済' : '未'}
+                <button onClick={() => toggleDone(task)} style={{ margin: 10 }}>
+                  チェック
+                </button>
+                <button onClick={() => removeTask(task.id)}>削除</button>
+              </div>
             </li>
           );
         })}
